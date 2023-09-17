@@ -13,7 +13,7 @@ final class CustomResponse extends ResponseBase
         int $status = 200,
         int $encodingOptions = 0
     ): self {
-        $encodingOptions |= JSON_NUMERIC_CHECK; // Add JSON_NUMERIC_CHECK option
+        // $encodingOptions |= JSON_NUMERIC_CHECK; // Add JSON_NUMERIC_CHECK option
         $json = json_encode($data, $encodingOptions);
 
         if ($json === false) {
