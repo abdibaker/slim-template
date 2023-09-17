@@ -1,12 +1,29 @@
+# Ignore vendor directory created by Composer
 /vendor/
-/logs/*
-!/logs/README.md
-/coverage/
-*.php_cs.cache
-/nbproject/
-/build/
+
+# Ignore Composer's lock file
+composer.lock
+
+# Ignore IDE and code editor specific files
+.vscode/
+.idea/
+.phpstorm.meta.php
+.phpstorm.meta.php.sandbox
+
+# Ignore logs and cache files
+/logs/
 /cache/
-/.env
-/.scannerwork/
-/.phpunit.result.cache
+
+# Ignore environment-specific configuration files
+.env
+
+# Ignore user-specific files
+*.swp
+.DS_Store
+
+# Ignore node_modules directory if using JavaScript or frontend assets
 node_modules/
+
+# Ignore build artifacts or compiled assets (change this based on your setup)
+/build/
+/dist/
