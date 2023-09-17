@@ -14,10 +14,11 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "doctrine/dbal": "^3.6",
-    "pimple/pimple": "^3.2",
-    "slim/psr7": "^1.4.0",
-    "slim/slim": "^4.5",
-    "vlucas/phpdotenv": "^5.1"
+    "firebase/php-jwt": "^6.8",
+    "pimple/pimple": "^3.5",
+    "slim/psr7": "^1.6",
+    "slim/slim": "^4.12",
+    "vlucas/phpdotenv": "^5.5"
   },
   "config": {
     "sort-packages": true,
