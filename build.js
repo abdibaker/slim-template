@@ -1,21 +1,21 @@
-import * as fs from 'fs/promises';
+import fs from 'fs';
 import { exec } from 'child_process';
-import { copy } from 'fs-extra'; // Import fs-extra for recursive directory copying
 
 export async function buildApp() {
   const buildDirectory = 'build';
 
   try {
     // Create build directory if it doesn't exist
-    await fs.mkdir(buildDirectory, { recursive: true });
+    if (!fs.existsSync(buildDirectory)) {
+      fs.mkdirSync(buildDirectory, { recursive: true });
+    }
 
     // Copy files and directories to the build directory
-    await Promise.all([
-      fs.copyFile('composer.json', `${buildDirectory}/composer.json`),
-      fs.copyFile('composer.lock', `${buildDirectory}/composer.lock`),
-      copy('./src', `${buildDirectory}/src`), // Use fs-extra's copy for recursive copy
-      copy('./public', `${buildDirectory}/public`), // Use fs-extra's copy for recursive copy
-    ]);
+    fs.copyFileSync('composer.json', `${buildDirectory}/composer.json`);
+    fs.copyFileSync('composer.lock', `${buildDirectory}/composer.lock`);
+    fs.copyFileSync('.htaccess', `${buildDirectory}/.htaccess`);
+    copyDirectory('./src', `${buildDirectory}/src`);
+    copyDirectory('./public', `${buildDirectory}/public`);
 
     // Change to the build directory
     process.chdir(buildDirectory);
@@ -33,9 +33,9 @@ export async function buildApp() {
         console.log(stdout);
         console.error(stderr);
 
-        // delete composer files
-        fs.unlink('composer.json');
-        fs.unlink('composer.lock');
+        // Delete composer files
+        fs.unlinkSync('composer.json');
+        fs.unlinkSync('composer.lock');
 
         // Change back to the original directory
         process.chdir('..');
@@ -48,3 +48,25 @@ export async function buildApp() {
     );
   }
 }
+
+function copyDirectory(source, destination) {
+  if (!fs.existsSync(destination)) {
+    fs.mkdirSync(destination);
+  }
+
+  const files = fs.readdirSync(source);
+
+  for (const file of files) {
+    const sourcePath = `${source}/${file}`;
+    const destinationPath = `${destination}/${file}`;
+
+    if (fs.lstatSync(sourcePath).isDirectory()) {
+      copyDirectory(sourcePath, destinationPath);
+    } else {
+      fs.copyFileSync(sourcePath, destinationPath);
+    }
+  }
+}
+
+// Call the buildApp function to start the build process
+buildApp();
