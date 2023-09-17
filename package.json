@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "studio": "npx prisma studio",
-    "seed": "npx prisma db seed"
+    "seed": "npx prisma db seed",
+    "build": "node build.js"
   },
   "keywords": [],
   "author": "",
