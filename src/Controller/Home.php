@@ -30,7 +30,7 @@ final class Home
     }
     public function api(Request $request, Response $response): Response
     {
-        $file = './swagger/index.html';
+        $file = './swagger/local.html';
         if (is_file($file)) {
             $body = file_get_contents($file);
             $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
