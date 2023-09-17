@@ -30,7 +30,7 @@ final class Home
     }
     public function api(Request $request, Response $response): Response
     {
-        $file = './public/swagger/index.html';
+        $file = './swagger/index.html';
         if (is_file($file)) {
             $body = file_get_contents($file);
             $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
@@ -40,7 +40,7 @@ final class Home
     }
     public function swagger(Request $request, Response $response): Response
     {
-        $file = './public/swagger/swagger.json';
+        $file = './swagger/swagger.json';
         if (is_file($file)) {
             $body = file_get_contents($file);
             $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
