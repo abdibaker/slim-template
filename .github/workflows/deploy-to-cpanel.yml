@@ -1,0 +1,30 @@
+name: Deploy Slim 4 API to cPanel
+on:
+  push:
+    branches:
+      - notyet
+jobs:
+  Build-And-Deploy:
+    name: 🚀 Build and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: 🏗️ Build Slim 4 API
+        run: |
+          npm install # Install dependencies (you might need this step)
+          npm run build # Replace with your actual build command
+        working-directory: path/to/your/repo # Replace with the actual path
+
+      - name: 📂 Sync folders and files to the server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: build # This specifies the local directory to deploy
+          remote-dir: /path/to/remote/directory # Replace with your remote directory
