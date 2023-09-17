@@ -30,18 +30,23 @@ final class Home
     }
     public function api(Request $request, Response $response): Response
     {
-        $file = 'public/swagger/index.html';
-        $body = file_get_contents($file);
-        $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
-        return $response;
-
+        $file = './public/swagger/index.html';
+        if (is_file($file)) {
+            $body = file_get_contents($file);
+            $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
+            return $response;
+        }
+        return $response->withStatus(404);
     }
     public function swagger(Request $request, Response $response): Response
     {
-        $file = 'public/swagger/swagger.json';
-        $body = file_get_contents($file);
-        $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
-        return $response;
+        $file = './public/swagger/swagger.json';
+        if (is_file($file)) {
+            $body = file_get_contents($file);
+            $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
+            return $response;
+        }
+        return $response->withStatus(404);
     }
 
     public function getStatus(Request $request, Response $response): Response
