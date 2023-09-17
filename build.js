@@ -16,6 +16,7 @@ export async function buildApp() {
     fs.copyFileSync('.htaccess', `${buildDirectory}/.htaccess`);
     copyDirectory('./src', `${buildDirectory}/src`);
     copyDirectory('./public', `${buildDirectory}/public`);
+    copyDirectory('./swagger', `${buildDirectory}/swagger`);
 
     // Change to the build directory
     process.chdir(buildDirectory);
