@@ -7,11 +7,11 @@
     "contact": {
       "email": "abdibaker1@gmail.com",
       "name": "",
-      "url": "http://localhost:8080"
+      "url": "http://27.0.0.1:8080"
     }
   },
   "servers": [
-    { "url": "http://localhost:8080", "description": "Local server" }
+    { "url": "http://27.0.0.1:8080", "description": "Local server" }
   ],
   "components": {
     "securitySchemes": {
@@ -59,7 +59,8 @@
             "required": true,
             "schema": { "type": "string" }
           }
-        ]
+        ],
+        "security": []
       }
     }
   }

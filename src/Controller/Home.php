@@ -31,22 +31,17 @@ final class Home
     public function api(Request $request, Response $response): Response
     {
         $file = 'public/swagger/index.html';
-        if (is_file($file)) {
-            $body = file_get_contents($file);
-            $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
-            return $response;
-        }
-        return $response->withStatus(404);
+        $body = file_get_contents($file);
+        $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
+        return $response;
+
     }
     public function swagger(Request $request, Response $response): Response
     {
         $file = 'public/swagger/swagger.json';
-        if (is_file($file)) {
-            $body = file_get_contents($file);
-            $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
-            return $response;
-        }
-        return $response->withStatus(404);
+        $body = file_get_contents($file);
+        $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
+        return $response;
     }
 
     public function getStatus(Request $request, Response $response): Response

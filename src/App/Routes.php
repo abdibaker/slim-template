@@ -4,7 +4,6 @@ declare(strict_types=1);
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
-use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -41,7 +40,7 @@ return static function ($app) {
   $homeController = 'App\Controller\Home:';
 
   $app->get('/', "{$homeController}api");
-  // $app->get('/swagger', "{$homeController}swagger");
+  $app->get('/swagger', "{$homeController}swagger");
   $app->get('/api', "{$homeController}getHelp");
   $app->get('/status', "{$homeController}getStatus");
 
