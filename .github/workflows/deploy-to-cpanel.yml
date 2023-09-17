@@ -2,7 +2,7 @@ name: Deploy API to cPanel
 on:
   push:
     branches:
-      - main
+      - write_production_branch_name
 jobs:
   Build-And-Deploy:
     name: 🚀 Build and Deploy

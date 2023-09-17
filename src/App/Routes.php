@@ -40,7 +40,7 @@ return static function ($app) {
   $homeController = 'App\Controller\Home:';
 
   $app->get('/', "{$homeController}api");
-  $app->get('/swagger-local', "{$homeController}swagger");
+  $app->get('/swagger-ui', "{$homeController}swagger");
   $app->get('/api', "{$homeController}getHelp");
   $app->get('/status', "{$homeController}getStatus");
 

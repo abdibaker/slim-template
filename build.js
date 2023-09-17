@@ -36,6 +36,7 @@ export async function buildApp() {
         // Delete composer files
         fs.unlinkSync('composer.json');
         fs.unlinkSync('composer.lock');
+        fs.unlinkSync(`${buildDirectory}/public/swagger/local.html`);
 
         // Change back to the original directory
         process.chdir('..');
