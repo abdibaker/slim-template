@@ -19,7 +19,7 @@
     "respect/validation": "^2.2",
     "slim/psr7": "^1.6",
     "slim/slim": "^4.12",
-    "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5"
   },
   "config": {
     "sort-packages": true,
