@@ -21,7 +21,7 @@
     "prisma": "^5.2.0"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "npx ts-node prisma/seed.ts"
   },
   "type": "module"
 }
