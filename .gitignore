@@ -1,9 +1,6 @@
 # Ignore vendor directory created by Composer
 /vendor/
 
-# Ignore Composer's lock file
-composer.lock
-
 # Ignore IDE and code editor specific files
 .vscode/
 .idea/
