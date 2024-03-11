@@ -13,7 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.5.6",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -21,7 +20,7 @@
     "prisma": "^5.2.0"
   },
   "prisma": {
-    "seed": "npx ts-node prisma/seed.ts"
+    "seed": "npx tsx ./prisma/seed.ts"
   },
   "type": "module"
 }
