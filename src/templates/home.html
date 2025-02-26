@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>{{api}} - Status Dashboard</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>{{api}} Status Dashboard</h1>
+        <div class="version-badge">Version {{version}}</div>
+      </header>
+
+      <div class="content">
+        <div class="status-card">
+          <div class="status-header">System Status</div>
+          <div class="status-body">
+            <div class="status-item">
+              <div class="status-label">Database Connection</div>
+              <div class="status-value">
+                <span class="status-indicator {{db_status_class}}"></span>
+                {{db_status}}
+              </div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">API Status</div>
+              <div class="status-value">
+                <span class="status-indicator status-ok"></span>
+                Online
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="links-section">
+          <h2>API Resources</h2>
+          <a href="/docs" class="link-card">
+            <div class="link-icon">📝</div>
+            <div class="link-details">
+              <div class="link-title">Slim cli Documentation 📚</div>
+              <div class="link-description">
+                Documentation for the Slim cli tool, includes getting started,
+                routing, authentication, middleware, and more
+              </div>
+            </div>
+          </a>
+          <a href="/swagger" class="link-card">
+            <div class="link-icon">
+              <img
+                src="/swagger/favicon-32x32.png"
+                alt="Swagger logo"
+                width="32"
+                height="32"
+              />
+            </div>
+            <div class="link-details">
+              <div class="link-title">API Documentation (Swagger)</div>
+              <div class="link-description">
+                Interactive Swagger documentation for all API endpoints
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="timestamp">Last updated: {{timestamp}}</div>
+      </div>
+
+      <footer>&copy; {{current_year}} {{api}} - All rights reserved</footer>
+    </div>
+  </body>
+</html>

@@ -33,12 +33,8 @@ return static function (App $app) {
   };
 
   // --------------- Home Routes ---------------- //
-  $homeController = 'App\Controller\Home:';
-
-  $app->get('/', "{$homeController}api");
-  $app->get('/swagger-ui', "{$homeController}swagger");
-  $app->get('/api', "{$homeController}getHelp");
-  $app->get('/status', "{$homeController}getStatus");
+  $app->get('/', "App\Controller\Home:home");
+  $app->get('/status', "App\Controller\Home:home");
 
   return $app;
 };

@@ -7,60 +7,63 @@ namespace App\Controller;
 use App\CustomResponse as Response;
 use Pimple\Psr11\Container;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Exception;
 
 final class Home
 {
   private const API_NAME = 'slim4-api';
-
   private const API_VERSION = '0.41.0';
 
-  public function __construct(private Container $container)
+  private Container $container;
+
+  public function __construct(Container $container)
   {
+    $this->container = $container;
   }
 
-  public function getHelp(Request $request, Response $response): Response
+  public function home(Request $request, Response $response): Response
   {
-    $message = [
-      'api'       => self::API_NAME,
-      'version'   => self::API_VERSION,
-      'timestamp' => time(),
-    ];
+    $dbStatus = 'ERROR';
 
-    return $response->withJson($message);
-  }
-  public function api(Request $request, Response $response): Response
-  {
-    $file = './public/swagger/local.html';
-    if (is_file($file)) {
-      $body = file_get_contents($file);
-      $response->withHeader('Content-Type', 'text/html')->getBody()->write($body);
-      return $response;
+    try {
+      $db = $this->container->get('db');
+      $dbStatus = 'OK';
+    } catch (Exception $e) {
+      $dbStatus = 'ERROR: ' . $e->getMessage();
     }
-    return $response->withStatus(404);
-  }
-  public function swagger(Request $request, Response $response): Response
-  {
-    $file = './public/swagger/swagger.json';
-    if (is_file($file)) {
-      $body = file_get_contents($file);
-      $response->withHeader('Content-Type', 'application/json')->getBody()->write($body);
-      return $response;
-    }
-    return $response->withStatus(404);
-  }
 
-  public function getStatus(Request $request, Response $response): Response
-  {
-    $this->container->get('db');
     $status = [
       'status'    => [
-        'database' => 'OK',
+        'database' => $dbStatus,
       ],
       'api'       => self::API_NAME,
       'version'   => self::API_VERSION,
       'timestamp' => time(),
     ];
 
-    return $response->withJson($status);
+    // Check if the request wants JSON format
+    $acceptHeader = $request->getHeaderLine('Accept');
+    if (strpos($acceptHeader, 'application/json') !== false) {
+      return $response->withJson($status);
+    }
+
+    // Otherwise render HTML template
+    $templatePath = __DIR__ . '/../templates/home.html';
+    $template = file_get_contents($templatePath);
+
+    // Simple template variable replacement
+    $replacements = [
+      '{{api}}' => self::API_NAME,
+      '{{version}}' => self::API_VERSION,
+      '{{db_status}}' => $dbStatus,
+      '{{db_status_class}}' => strpos($dbStatus, 'ERROR') !== false ? 'status-error' : 'status-ok',
+      '{{timestamp}}' => date('Y-m-d H:i:s', time()),
+      '{{current_year}}' => date('Y')
+    ];
+
+    $html = str_replace(array_keys($replacements), array_values($replacements), $template);
+
+    $response->getBody()->write($html);
+    return $response->withHeader('Content-Type', 'text/html');
   }
 }
