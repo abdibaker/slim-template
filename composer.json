@@ -35,10 +35,5 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "start": "php -S 127.0.0.1:8080 -t public public/index.php",
-    "up": "docker compose up -d --build",
-    "down": "docker compose down"
-  }
+  "prefer-stable": true
 }

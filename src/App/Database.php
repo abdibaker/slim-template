@@ -10,9 +10,9 @@ $container['db'] = static function () {
         'user'     => getenv('DB_USER'),
         'password' => getenv('DB_PASS'),
         'host'     => getenv('DB_HOST'),
-        'driver'   => 'pdo_mysql',
+        'driver'   => getenv('DB_CLIENT') === 'mysql' ? 'pdo_mysql' : 'pdo_pgsql',
     ];
-    $conn = DriverManager   ::getConnection($connectionParams);
+    $conn = DriverManager::getConnection($connectionParams);
 
     return $conn;
 };
