@@ -97,6 +97,22 @@ class Helper
   }
 
   /**
+   * Generate a random password
+   */
+  public static function generateRandomPassword(int $length = 6): string
+  {
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+';
+    $password = '';
+    $max = strlen($chars) - 1;
+
+    for ($i = 0; $i < $length; $i++) {
+      $password .= $chars[random_int(0, $max)];
+    }
+
+    return $password;
+  }
+
+  /**
    * Extract and format foreign key error message
    */
   private static function getForeignKeyErrorMessage(string $errorMessage): string
@@ -281,6 +297,14 @@ class Helper
     $mappedErrorCode = self::mapErrorCode($errorCode);
 
     // Use match expression (PHP 8.0+) for better performance and readability
+    // First check for HTTP status codes
+    if ($errorCode === 401) {
+      return $response->withJson([
+        'error' => 'Authentication failed',
+        'details' => $errorMessage
+      ], 401);
+    }
+
     return match ($mappedErrorCode) {
       self::MYSQL_ERROR_DUPLICATE =>
       $response->withJson(['error' => self::getDuplicateEntryMessage($errorMessage)], 409),
@@ -347,5 +371,13 @@ class Helper
         ], 500);
       })()
     };
+  }
+
+  /**
+   * Filter input data to only include allowed fields
+   */
+  public static function filterDtoFields(array $input, array $allowedFields): array
+  {
+    return array_intersect_key($input, array_flip($allowedFields));
   }
 }

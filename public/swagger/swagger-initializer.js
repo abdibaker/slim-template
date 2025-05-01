@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = () => {
   window.ui = SwaggerUIBundle({
     urls: [
       {
@@ -8,7 +8,7 @@ window.onload = function () {
     ],
     dom_id: '#swagger-ui',
     filter: true,
-    tagsSorter: "alpha",
+    // tagsSorter: "alpha",
     validatorUrl: null,
     deepLinking: true,
     presets: [
